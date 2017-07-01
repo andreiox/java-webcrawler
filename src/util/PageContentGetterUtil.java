@@ -57,7 +57,7 @@ public class PageContentGetterUtil {
 	private static String[] createLinkArray(Elements elements) {
 		int length = elements.size();
 		String links[] = new String[length];
-		
+
 		for (int i = 0; i < length; i++)
 			links[i] = elements.get(i).attr("abs:href");
 
