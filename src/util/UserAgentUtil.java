@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class UserAgentUtil {
 
-	private static List<String>	userAgents;
+	private static List<String> userAgents;
 
 	/**
 	 * Return a random user agent from a predetermined list
