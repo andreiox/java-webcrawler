@@ -2,15 +2,20 @@ package persistence;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import util.URLUtil;
 
 @Entity
 @Table(name = "page")
+@Cacheable(false)
 public class Page implements Serializable {
 	private static final long serialVersionUID = -8740428081918482555L;
 
@@ -21,11 +26,25 @@ public class Page implements Serializable {
 	@Column(name = "generation_number")
 	private int generationNumber;
 
+	@Lob
 	@Column(name = "page_url")
 	private String pageUrl;
 
+	@Column(name = "domain")
+	private String domain;
+
 	@Column(name = "visited")
 	private boolean visited;
+
+	public Page() {
+	}
+
+	public Page(int generationNumber, String pageUrl, boolean visited) {
+		this.generationNumber = generationNumber;
+		this.pageUrl = pageUrl;
+		this.visited = visited;
+		this.domain = URLUtil.extractDomainFromLink(pageUrl);
+	}
 
 	public int getId() {
 		return id;
@@ -57,6 +76,10 @@ public class Page implements Serializable {
 
 	public void setVisited(boolean visited) {
 		this.visited = visited;
+	}
+
+	public String getDomain() {
+		return domain;
 	}
 
 }

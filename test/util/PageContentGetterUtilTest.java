@@ -1,6 +1,7 @@
 package util;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,8 +16,8 @@ public class PageContentGetterUtilTest {
 	@Test
 	public void getPageDocumentTest() throws IOException {
 		String url = "http://www.ledr.com/colours/white.htm";
-		String[] pageLinks = PageContentGetterUtil.getPageLinks(url);
+		List<String> pageLinks = PageContentGetterUtil.getPageLinks(url);
 
-		Assert.assertEquals(pageLinks[0], "https://www.ledr.com/colours/multi.htm");
+		Assert.assertEquals(pageLinks.get(0), "https://www.ledr.com/colours/multi.htm");
 	}
 }

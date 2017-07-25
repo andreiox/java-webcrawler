@@ -1,6 +1,8 @@
 package util;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,12 +18,12 @@ public class PageContentGetterUtil {
 	 * @return String Array containing the links from the page
 	 * @throws IOException
 	 */
-	public static String[] getPageLinks(String url) throws IOException {
+	public static List<String> getPageLinks(String url) throws IOException {
 
 		Document doc = getPageDocument(url);
 		Elements linkElements = extractPageLinks(doc);
 
-		return createLinkArray(linkElements);
+		return createLinkList(linkElements);
 	}
 
 	/**
@@ -48,20 +50,21 @@ public class PageContentGetterUtil {
 	}
 
 	/**
-	 * Create a link array from Elements
+	 * Create a link list from Elements
 	 * 
 	 * @author andre
 	 * @param elements
-	 * @return String array containing links
+	 * @return String List containing links
 	 */
-	private static String[] createLinkArray(Elements elements) {
-		int length = elements.size();
-		String links[] = new String[length];
+	private static List<String> createLinkList(Elements elements) {
+		List<String> list = new ArrayList<String>();
+		for (int i = 0; i < elements.size(); i++) {
+			String link = elements.get(i).attr("abs:href");
+			if (URLUtil.isUrlValid(link))
+				list.add(link);
+		}
 
-		for (int i = 0; i < length; i++)
-			links[i] = elements.get(i).attr("abs:href");
-
-		return links;
+		return list;
 	}
 
 }
