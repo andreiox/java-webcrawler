@@ -42,7 +42,7 @@ public class PageController {
 		EntityManager em = JpaUtil.createEntityManager();
 		List<Page> list = null;
 		try {
-			String jpql = "select p from Page p order by p.id, p.generationNumber";
+			String jpql = "select p from Page p order by p.generationNumber";
 			Query q = em.createQuery(jpql);
 			q.setMaxResults(limit);
 			list = q.getResultList();
